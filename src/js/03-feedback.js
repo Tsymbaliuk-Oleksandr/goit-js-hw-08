@@ -8,8 +8,6 @@ const refs = {
     textarea: document.querySelector(".feedback-form textarea"),
 };
 
-uerySelector(".feedback-form textarea");
-
 refs.form.addEventListener("submit", onFormSubmit);
 
 refs.form.addEventListener("input", throttle(onTextereaInput, 500));
