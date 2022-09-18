@@ -1,37 +1,46 @@
-// Підключаємо бібіліотеку "lodash.throttle" 
 import throttle from 'lodash.throttle';
 
 const STORAGE_KEY = "feedback-form-state";
 
 const refs = {
     form: document.querySelector(".feedback-form"),
-    textarea: document.querySelector(".feedback-form textarea"),
+    input: document.querySelector("input"),
+    textarea: document.querySelector("textarea"),
 };
 
 refs.form.addEventListener("submit", onFormSubmit);
+refs.form.addEventListener("input", throttle(onFormInput, 500));
 
-refs.form.addEventListener("input", throttle(onTextereaInput, 500));
+const emailMessageLocalStor = {
+    email: '',
+    message: '',
+  };
 
 populateTexterea();
 
+function onFormInput(event) {
 
-function onFormSubmit(evt) {
-    evt.preventDefault();
-    // console.log("Відправляємо форму");
-    evt.currentTarget.reset();// скидаємо всі дані у формі, тобто очищаємо всі поля
-    localStorage.removeItem(STORAGE_KEY);// очищаємо форму повідомлення користувача "localStorage", бо текст користувача не зникає в повідомленні, якщо цього не зробити
+emailMessageLocalStor[event.target.name] = event.target.value;
+    saveCurrentValueLokalStor(emailMessageLocalStor);
 }
 
-function onTextereaInput(evt) {
-    const message = evt.target.value;
-    console.log(message);
-    localStorage.setItem(STORAGE_KEY, message);
+function saveCurrentValueLokalStor(obj) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+}
+
+function onFormSubmit(evt) {
+    evt.preventDefault(); 
+    console.log(JSON.parse(localStorage.getItem(STORAGE_KEY))); 
+
+    evt.currentTarget.reset();
+    localStorage.removeItem(STORAGE_KEY);
 }
 
 function populateTexterea() {
     const savedMessage = localStorage.getItem(STORAGE_KEY);
     if (savedMessage) {
-        console.log(savedMessage);
-        refs.textarea.value = savedMessage;
+        // console.log(savedMessage);
+        refs.input.value = JSON.parse.savedMessage;
+        refs.textarea.value = JSON.parse.savedMessage;
     }
 }
