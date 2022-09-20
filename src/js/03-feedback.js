@@ -18,9 +18,8 @@ const emailMessageLocalStor = {
 
 populateTexterea();
 
-function onFormInput(event) {
-
-emailMessageLocalStor[event.target.name] = event.target.value;
+function onFormInput(evt) {
+emailMessageLocalStor[evt.target.name] = evt.target.value;
     saveCurrentValueLokalStor(emailMessageLocalStor);
 }
 
@@ -39,8 +38,11 @@ function onFormSubmit(evt) {
 function populateTexterea() {
     const savedMessage = localStorage.getItem(STORAGE_KEY);
     if (savedMessage) {
-        // console.log(savedMessage);
-        refs.input.value = JSON.parse.savedMessage;
-        refs.textarea.value = JSON.parse.savedMessage;
+        const parsedValue = JSON.parse(savedMessage);
+        // console.log(parsedValue);
+        refs.input.value = parsedValue.email;
+        refs.textarea.value = parsedValue.message;
+        emailMessageLocalStor.email = parsedValue.email;
+        emailMessageLocalStor.message = parsedValue.message;
     }
 }
