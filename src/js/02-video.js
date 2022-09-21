@@ -15,9 +15,7 @@ player.on('timeupdate', throttle(() => {
 
 player.on('loaded', () => {
   const savedTime = localStorage.getItem(LOCALSTORAGE_KEY);
-  player
-    .setCurrentTime(savedTime)
-    .then(function (seconds) {
-      console.log(seconds);
-    });
+if (savedTime) {
+  player.setCurrentTime(savedTime)
+}
 });

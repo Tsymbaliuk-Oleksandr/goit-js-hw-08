@@ -11,7 +11,7 @@ const refs = {
 refs.form.addEventListener("submit", onFormSubmit);
 refs.form.addEventListener("input", throttle(onFormInput, 500));
 
-const emailMessageLocalStor = {
+let emailMessageLocalStor = {
     email: '',
     message: '',
   };
@@ -30,6 +30,8 @@ function saveCurrentValueLokalStor(obj) {
 function onFormSubmit(evt) {
     evt.preventDefault(); 
     console.log(JSON.parse(localStorage.getItem(STORAGE_KEY))); 
+
+    emailMessageLocalStor ={};
 
     evt.currentTarget.reset();
     localStorage.removeItem(STORAGE_KEY);
