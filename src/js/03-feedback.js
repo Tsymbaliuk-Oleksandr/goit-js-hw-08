@@ -41,10 +41,10 @@ function populateTexterea() {
     const savedMessage = localStorage.getItem(STORAGE_KEY);
     if (savedMessage) {
         const parsedValue = JSON.parse(savedMessage);
-        // console.log(parsedValue);
-        refs.input.value = parsedValue.email;
-        refs.textarea.value = parsedValue.message;
-        emailMessageLocalStor.email = parsedValue.email;
-        emailMessageLocalStor.message = parsedValue.message;
-    }
-}
+        Object.entries(parsedValue).forEach(([name, value]) => {
+            emailMessageLocalStor[name] = value;
+            refs.form.elements[name].value = value;
+            // console.log(Object.entries(parsedValue));
+        },
+    )}
+};
